@@ -1,0 +1,26 @@
+# IDE ve proje yapılandırma dosyaları
+*.iml
+.idea/
+!.idea/vcs.xml
+!.idea/runConfigurations
+
+# Gradle ve build dosyaları
+.gradle/
+build/
+externalNativeBuild/
+.cxx/
+
+# Geçici dosyalar ve önbellekler
+*.log
+.DS_Store
+captures/
+proguard/
+lint/
+lint-results.xml
+lint-results-debug.xml
+lint-results-release.xml
+/release/
+obj/
+
+# Local configuration file (sdk path, etc)
+local.properties

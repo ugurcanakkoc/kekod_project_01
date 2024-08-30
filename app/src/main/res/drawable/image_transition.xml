@@ -1,0 +1,5 @@
+<!-- res/drawable/image_transition.xml -->
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/no_respect" />
+    <item android:drawable="@drawable/respect" />
+</transition>

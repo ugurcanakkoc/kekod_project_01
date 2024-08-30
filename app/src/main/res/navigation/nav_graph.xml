@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/switchesNavigation">
+
+    <fragment
+        android:id="@+id/switchesNavigation"
+        android:name="com.example.kekodproject1.Switches"
+        android:label="fragment_switches"
+        tools:layout="@layout/fragment_switches" />
+    <fragment
+        android:id="@+id/givingNavigation"
+        android:name="com.example.kekodproject1.Giving"
+        android:label="fragment_giving"
+        tools:layout="@layout/fragment_giving" />
+    <fragment
+        android:id="@+id/respectNavigation"
+        android:name="com.example.kekodproject1.Respect"
+        android:label="fragment_respect"
+        tools:layout="@layout/fragment_respect" />
+    <fragment
+        android:id="@+id/happinessNavigation"
+        android:name="com.example.kekodproject1.Happiness"
+        android:label="fragment_happiness"
+        tools:layout="@layout/fragment_happiness" />
+    <fragment
+        android:id="@+id/kindnessNavigation"
+        android:name="com.example.kekodproject1.Kindness"
+        android:label="fragment_kindness"
+        tools:layout="@layout/fragment_kindness" />
+    <fragment
+        android:id="@+id/optimismNavigation"
+        android:name="com.example.kekodproject1.Optimism"
+        android:label="fragment_optimism"
+        tools:layout="@layout/fragment_optimism" />
+
+</navigation>

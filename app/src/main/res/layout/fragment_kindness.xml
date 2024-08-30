@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Kindness">
+
+    <LinearLayout
+        android:id="@+id/question_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Bir arkadaşın kodu çalışmadığı için ağlıyorsa, nasıl tepki verirsiniz?"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/answers_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/answer_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A) Hemen yanına gider, gözyaşlarını siler ve kodu düzeltmek için yardım ederim." />
+
+            <RadioButton
+                android:id="@+id/answer_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B) Bir mendil verip gönderirim, kendisi halletsin." />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Cevapla" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/result_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/result_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/happiness" />
+
+        <TextView
+            android:id="@+id/kindness_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kibar Bir İnsan"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/rude_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ne hoş bir davranış"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>
