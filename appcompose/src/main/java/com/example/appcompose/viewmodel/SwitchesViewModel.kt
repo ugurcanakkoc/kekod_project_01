@@ -1,79 +1,76 @@
 package com.example.appcompose.viewmodel
 
+import MenuItemRepository
 import androidx.lifecycle.ViewModel
+import com.example.appcompose.model.MenuItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class SwitchViewModel : ViewModel() {
+class SwitchViewModel(private val menuItemRepository: MenuItemRepository) : ViewModel() {
 
-    private val _isEgoChecked = MutableStateFlow(false)
-    val isEgoChecked: StateFlow<Boolean> = _isEgoChecked
 
-    private val _isGivingChecked = MutableStateFlow(false)
-    val isGivingChecked: StateFlow<Boolean> = _isGivingChecked
+    private val _switchStates = MutableStateFlow(
+        mapOf(
+            MenuItem.Ego to true,
+            MenuItem.Giving to false,
+            MenuItem.Happiness to false,
+            MenuItem.Kindness to false,
+            MenuItem.Optimism to false,
+            MenuItem.Respect to false
+        )
+    )
+    val switchStates: StateFlow<Map<MenuItem, Boolean>> = _switchStates
 
-    private val _isHappinessChecked = MutableStateFlow(false)
-    val isHappinessChecked: StateFlow<Boolean> = _isHappinessChecked
+    // TODO: isEgoChecked buglı çalışıyor. Ego kapalı iken switch açınca ilk seferde tekrar kendisini true yapıyor.
+    private val isEgoChecked: Boolean get() = _switchStates.value[MenuItem.Ego]!!
 
-    private val _isKindnessChecked = MutableStateFlow(false)
-    val isKindnessChecked: StateFlow<Boolean> = _isKindnessChecked
 
-    private val _isOptimismChecked = MutableStateFlow(false)
-    val isOptimismChecked: StateFlow<Boolean> = _isOptimismChecked
+    fun onSwitchCheckedChanged(menuItem: MenuItem, isChecked: Boolean) {
 
-    private val _isRespectChecked = MutableStateFlow(false)
-    val isRespectChecked: StateFlow<Boolean> = _isRespectChecked
+        if (menuItem == MenuItem.Ego) {
+            if (isChecked) {
+                closeAllSwitches()
+                updateSwitchState(menuItem, true)
+            } else {
+                updateSwitchState(menuItem, false)
+            }
+        } else if (!isEgoChecked) {
 
-    fun onEgoCheckedChanged(isChecked: Boolean) {
-        if (isChecked)
-            closeAllSwitch()
-        _isEgoChecked.value = isChecked
+            updateSwitchState(menuItem, isChecked)
+            if (menuItem.label != MenuItem.Switch.label && menuItem.label != MenuItem.Ego.label) {
+                if (isChecked) {
+
+                    if (!menuItemRepository.addMenuItem(menuItem))
+                        updateSwitchState(menuItem, false)
+                } else {
+                    menuItemRepository.removeMenuItem(menuItem)
+                }
+            }
+            return
+        } else {
+            updateSwitchState(menuItem, false)
+        }
+
+
     }
 
-    fun onGivingCheckedChanged(isChecked: Boolean) {
-        if (checkedEgoSwitch())
-            _isGivingChecked.value = false
-        else
-            _isGivingChecked.value = isChecked
+    private fun updateSwitchState(menuItem: MenuItem, isChecked: Boolean) {
+        val updatedStates = _switchStates.value.toMutableMap()
+        updatedStates[menuItem] = isChecked
+        _switchStates.value = updatedStates
     }
 
-    fun onHappinessCheckedChanged(isChecked: Boolean) {
-        if (checkedEgoSwitch())
-            _isHappinessChecked.value = false
-        else
-            _isHappinessChecked.value = isChecked
-    }
+    private fun closeAllSwitches() {
+        val updatedStates = _switchStates.value.toMutableMap()
+        updatedStates.forEach { (menuItem, _) ->
+            if (menuItem != MenuItem.Ego)
+                updatedStates[menuItem] = false
+                menuItemRepository.removeMenuItem(menuItem)
+        }
+        _switchStates.value = updatedStates
 
-    fun onKindnessCheckedChanged(isChecked: Boolean) {
-        if (checkedEgoSwitch())
-            _isKindnessChecked.value = false
-        else
-            _isKindnessChecked.value = isChecked
-    }
-
-    fun onOptimismCheckedChanged(isChecked: Boolean) {
-        if (checkedEgoSwitch())
-            _isOptimismChecked.value = false
-        else
-            _isOptimismChecked.value = isChecked
-    }
-
-    fun onRespectCheckedChanged(isChecked: Boolean) {
-        if (checkedEgoSwitch())
-            _isRespectChecked.value = false
-        else
-            _isRespectChecked.value = isChecked
-    }
-
-    private fun checkedEgoSwitch(): Boolean {
-        return _isEgoChecked.value
-    }
-
-    private fun closeAllSwitch() {
-        _isGivingChecked.value = false
-        _isHappinessChecked.value = false
-        _isKindnessChecked.value = false
-        _isOptimismChecked.value = false
-        _isRespectChecked.value = false
     }
 }
+
+
+

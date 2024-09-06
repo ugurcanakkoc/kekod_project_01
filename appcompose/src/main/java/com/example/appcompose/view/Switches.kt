@@ -1,5 +1,6 @@
 package com.example.appcompose.view
 
+import com.example.appcompose.model.MenuItem
 import com.example.appcompose.viewmodel.SwitchViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Switch
@@ -14,15 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Composable
 fun SwitchList(viewModel: SwitchViewModel) {
-    val isEgoChecked by viewModel.isEgoChecked.collectAsState()
-    val isGivingChecked by viewModel.isGivingChecked.collectAsState()
-    val isHappinessChecked by viewModel.isHappinessChecked.collectAsState()
-    val isKindnessChecked by viewModel.isKindnessChecked.collectAsState()
-    val isOptimismChecked by viewModel.isOptimismChecked.collectAsState()
-    val isRespectChecked by viewModel.isRespectChecked.collectAsState()
+    val switchStates by viewModel.switchStates.collectAsState( )
 
     Column(
         modifier = Modifier
@@ -31,19 +26,45 @@ fun SwitchList(viewModel: SwitchViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SwitchWithLabel(label = "Ego", isChecked = isEgoChecked, onCheckedChange = viewModel::onEgoCheckedChanged)
-        SwitchWithLabel(label = "Giving", isChecked = isGivingChecked, onCheckedChange = viewModel::onGivingCheckedChanged)
-        SwitchWithLabel(label = "Happiness", isChecked = isHappinessChecked, onCheckedChange = viewModel::onHappinessCheckedChanged)
-        SwitchWithLabel(label = "Kindness", isChecked = isKindnessChecked, onCheckedChange = viewModel::onKindnessCheckedChanged)
-        SwitchWithLabel(label = "Optimism", isChecked = isOptimismChecked, onCheckedChange = viewModel::onOptimismCheckedChanged)
-        SwitchWithLabel(label = "Respect", isChecked = isRespectChecked, onCheckedChange = viewModel::onRespectCheckedChanged)
+        SwitchWithLabel(
+            label = "Ego",
+            isChecked = switchStates[MenuItem.Ego]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Ego, it) }
+        )
+        SwitchWithLabel(
+            label = "Giving",
+            isChecked = switchStates[MenuItem.Giving]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Giving, it) }
+        )
+        SwitchWithLabel(
+            label = "Happiness",
+            isChecked = switchStates[MenuItem.Happiness]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Happiness, it) }
+        )
+        SwitchWithLabel(
+            label = "Kindness",
+            isChecked = switchStates[MenuItem.Kindness]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Kindness, it) }
+        )
+        SwitchWithLabel(
+            label = "Optimism",
+            isChecked = switchStates[MenuItem.Optimism]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Optimism, it) }
+        )
+        SwitchWithLabel(
+            label = "Respect",
+            isChecked = switchStates[MenuItem.Respect]!!,
+            onCheckedChange = { viewModel.onSwitchCheckedChanged(MenuItem.Respect, it) }
+        )
     }
 }
+
 
 @Composable
 fun SwitchWithLabel(label: String, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier
+            .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
