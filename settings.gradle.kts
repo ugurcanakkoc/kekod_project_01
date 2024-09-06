@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "KeKod Project 1"
 include(":app")
 include(":app:appcompose")
+include(":appcompose")
